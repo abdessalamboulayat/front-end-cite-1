@@ -1,0 +1,55 @@
+.box_form_activite div{
+    padding: 5px;
+  }
+  .box_form_activite  input , .box_form_activite  textarea{
+    border: 1px solid #0c5adb;
+  }
+  .box_form_activite  input:focus, .box_form_activite  textarea:focus{
+    /* border: 1px solid #000;*/
+    border: 1px solid #78abff; 
+    box-shadow: 0 0 5pt 2pt #78abff;
+    outline-width: 0px;
+  }
+  .form_box1 input {
+    width: 80%;
+    height: 50px;
+    padding-left: 15px;
+    background: transparent;
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: black;
+    /* color: #0000; */
+    transition: 0.5s;
+  }
+  
+  .form_box1 textarea {
+    width: 80%;
+    color: black;
+    background: transparent;
+    padding-left: 15px;
+    padding-top: 20px;
+    /* height: 250px; */
+    border: 1px solid gray;
+    border-radius: 5px;
+    /* color: #fff; */
+    transition: 0.5s;
+  }
+  .quote_btn button {
+    background: #0C5ADB;
+    border: 0;
+    color:white;
+    display: inline-block;
+    text-align: center;
+    padding: 14px 39px;
+    border-radius: 7px;
+    transition: 0.3s;
+  }
+  
+  .quote_btn button:hover {
+    background: #00247e;
+    color: #fff;
+  }
+  form{
+    display: block;
+    margin: auto;
+  }
