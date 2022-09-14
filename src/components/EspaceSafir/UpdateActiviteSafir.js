@@ -1,5 +1,5 @@
 import { Button, Divider } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import LeftBar from '../Component/LeftBar';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
@@ -9,23 +9,23 @@ import './form.css';
 
 function UpdateActiviteSafir(){
     const id = useParams();
-    
+    const idActivite = id.id;
     const [titre, setTitre] = useState();
     const [date, setDate] = useState(null);
     const [resume, setResume] = useState();
     const [description, setDescription] = useState();
-    const [image, setImage] = useState();
-    const [listImage, setListImage] = useState();
     const jwt = localStorage.getItem("tokenSafir");
 
-    axios.get(`http://localhost:8035/api/activiteSafir/getActiviteById/${id.id}`)
-    .then((res)=>{
+    useEffect(()=>{
+        axios.get(`http://localhost:8035/api/activiteSafir/getActiviteById/${id.id}`)
+        .then((res)=>{
         setTitre(res.data.titre);
         setResume(res.data.resume);
         setDescription(res.data.text);
         const dateValue = res.data.dateActiviteSafir.replace(/-/g, "/");
         setDate((prev)=>dateValue);
-    });
+        })
+    },[]);
 
     function submit(e){
         e.preventDefault();
@@ -34,17 +34,17 @@ function UpdateActiviteSafir(){
         formData.append("resume", resume);
         formData.append("text", description);
         formData.append("dateActiviteSafir", date);
-        
-        axios.put(`http://localhost:8035/api/safir/updateActiviteSafir/${id.id}`,
-        formData,
-        {headers:{
-            'Access-Control-Allow-Origin': 'http://localhost:3006',
-            'Authorization': 'Bearer '+jwt,
-        }}
-        )
-        .then((res)=>window.location.href="/activites");
+        fetch(`http://localhost:8035/api/safir/updateActivite/${idActivite}`,{
+            method: 'PUT',
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:3000/',
+                'Authorization': 'Bearer '+jwt,
+            },
+            body: formData,
+        })
+        .then((res)=>window.location.href="/activites")
+        .catch((error)=>console.log(error));
     }
-
     return(
         <div>
             <div >
@@ -70,7 +70,7 @@ function UpdateActiviteSafir(){
                                     placeholder="Titre de l'activité"
                                     // value={(e)=>e.target.value}
                                     defaultValue={titre}
-                                    onChange={(e)=>{setTitre(e.target.value); console.log(e.target.value);}}
+                                    onChange={(e)=>setTitre(e.target.value)}
                                     />
                                 </div>
                                 </div>
@@ -79,13 +79,12 @@ function UpdateActiviteSafir(){
                                     <input
                                     type="text"
                                     name="date"
-                                    // placeholder="2022-09-09"
-                                    // onChange={(e)=>setDate(e.target.value)}
+                                    placeholder="2022-09-09"
+                                    
                                     defaultValue={date}
                                     onChange={(e)=>{
                                         const dateValue = e.target.value.replace(/-/g, "/");
                                         setDate((prev)=>dateValue);
-                                        console.log(dateValue)
                                     }}
                                     //value={date}
                                     />

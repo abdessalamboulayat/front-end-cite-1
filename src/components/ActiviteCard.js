@@ -20,7 +20,6 @@ const ActiviteCard = (props) => {
     props.activite.listeImage.map((imageName)=>
     axios.get(`http://localhost:8035/api/activiteSafir/image/${imageName}`)
     .then((res)=>images.push(res.data)));
-    console.log(images);
     setListImage(images);
   },[])
   return (
@@ -40,7 +39,7 @@ const ActiviteCard = (props) => {
         </div>
         <div class="single_blog_content pl-4 pr-4">
           <div class="techno_blog_meta shado_bg">
-            <span class="meta-date pl-3">11-11-2021</span>
+            <span class="meta-date pl-3">{props.activite.dateActiviteSafir}</span>
           </div>
           <div class="blog_page_title pb-1 pt-3">
             <h6>

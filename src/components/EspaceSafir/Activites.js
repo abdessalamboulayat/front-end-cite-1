@@ -12,11 +12,12 @@ function Activites(){
     const [activites, setActivites] = useState([]);
     const jwt = localStorage.getItem("tokenSafir");
     useEffect(()=>{
-        axios.get("http://localhost:8035/api/activiteSafir/getAllActivities"
-            // headers:{
-            //     'Access-Control-Allow-Origin': 'http://localhost:3006',
-            //     'Authorization': 'Bearer '+jwt,
-            // }
+        axios.get("http://localhost:8035/api/safir/getMyActivities/",{
+            headers:{
+                'Access-Control-Allow-Origin': 'http://localhost:3006',
+                'Authorization': 'Bearer '+jwt,
+            }
+	}
         )
         .then((res)=>{setActivites(res.data); console.log(res.data)});
     },[]);
